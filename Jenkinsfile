@@ -18,6 +18,12 @@ pipeline {
                 echo 'Push'
             }
         }
+        steps{
+        withSonarQubeEnv('maven') {
+        sh "mvn sonar:sonar"
+    }
+        }
+        }
 
         stage('Deploy') {
             steps {
