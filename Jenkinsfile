@@ -18,11 +18,13 @@ pipeline {
                 echo 'Push'
             }
         }
-        steps{
-        withSonarQubeEnv('maven') {
-        sh "mvn sonar:sonar"
-    }
-        }
+        stage('SonarQube analysis') {
+            agent any 
+            steps {
+                withSonarQubeEnv('maven') {
+                        sh 'mvn clean package sonar:sonar'
+                }
+            }
         }
 
         stage('Deploy') {
